@@ -1,0 +1,76 @@
+<?php
+// controllers/AdminController.php — Gestion des utilisateurs (admin)
+
+require_once __DIR__ . '/../security/auth.php';
+require_once __DIR__ . '/../models/UserModel.php';
+
+class AdminController
+{
+    private UserModel $model;
+
+    public function __construct()
+    {
+        requiertConnexion();
+        // Seul l'admin peut accéder
+        if (!estAdmin()) {
+            flashMessage('danger', 'Accès réservé aux administrateurs.');
+            header('Location: index.php?page=dashboard');
+            exit;
+        }
+        $this->model = new UserModel();
+    }
+
+    /** Liste tous les utilisateurs */
+    public function liste(): void
+    {
+        $pageTitle    = 'Gestion des utilisateurs';
+        $utilisateurs = $this->model->tousLesUtilisateurs();
+        require_once __DIR__ . '/../views/admin/utilisateurs.php';
+    }
+
+    /** Valide un compte en_attente → actif */
+    public function valider(): void
+    {
+        $id = (int) ($_GET['id'] ?? 0);
+        if ($id) {
+            $this->model->changerStatut($id, 'actif');
+            flashMessage('success', 'Compte validé.');
+        }
+        header('Location: index.php?page=admin');
+        exit;
+    }
+
+    /** Suspend un compte actif → suspendu */
+    public function suspendre(): void
+    {
+        $id = (int) ($_GET['id'] ?? 0);
+        if ($id) {
+            $this->model->changerStatut($id, 'suspendu');
+            flashMessage('warning', 'Compte suspendu.');
+        }
+        header('Location: index.php?page=admin');
+        exit;
+    }
+
+    /** Supprime définitivement un compte (interdit sur les admins et sur soi-même) */
+    public function supprimer(): void
+    {
+        $id = (int) ($_GET['id'] ?? 0);
+
+        // Sécurité : impossible de se supprimer soi-même
+        if ($id === (int) $_SESSION['user_id']) {
+            flashMessage('danger', 'Vous ne pouvez pas supprimer votre propre compte.');
+            header('Location: index.php?page=admin');
+            exit;
+        }
+
+        if ($id && $this->model->supprimer($id)) {
+            flashMessage('success', 'Compte supprimé définitivement.');
+        } else {
+            flashMessage('danger', 'Suppression impossible (compte admin ou introuvable).');
+        }
+
+        header('Location: index.php?page=admin');
+        exit;
+    }
+}
