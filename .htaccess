@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{REQUEST_URI} ^/budgetsync/$
+RewriteRule ^ /budgetsync/frontend/ [R=301,L]
