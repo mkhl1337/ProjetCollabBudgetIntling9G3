@@ -1,1 +1,61 @@
-# BudgetSync
+# Budget Intelligent
+
+Budget Intelligent est une application web de gestion financière qui permet aux utilisateurs de suivre leurs revenus et leurs dépenses, d’analyser leurs habitudes de consommation et d’optimiser leur budget.
+
+Le projet offre une vision claire et structurée des finances personnelles à travers une interface simple et intuitive ainsi que des outils d’analyse.
+
+---
+
+##Fonctionnalités
+
+-Authentification des utilisateurs (connexion / inscription)
+-Gestion des revenus et des dépenses
+-Catégorisation des transactions
+-Tableau de bord avec statistiques financières
+-Suivi du budget mensuel
+-Analyse des habitudes de consommation
+-Alertes de dépassement de budget (si applicable)
+-Export des données (optionnel selon version)
+
+---
+
+##Technologies utilisées
+
+- Frontend: HTML, CSS, JavaScript
+- Backend: PHP
+- Database: MySQL
+- Tools: Git, GitHub
+
+---
+
+##Structure du projet
+
+- frontend/
+  - css/
+  - js/
+  - pages/
+
+- backend/
+  - controllers/
+  - models/
+  - config/
+
+- database/
+  - script.sql
+
+- docs/
+  - rapport.pdf
+  - diagrammes/
+
+---
+
+##Objectif du projet
+
+Ce projet vise à fournir une solution intelligente de gestion budgétaire permettant aux utilisateurs de mieux comprendre et contrôler leurs finances tout en améliorant leurs habitudes de consommation.
+
+---
+
+##Auteurs
+
+Développé par une équipe de trois étudiants :
+M. Khalil Lourimi, Iheb Nacib et Mohamed Mansour
